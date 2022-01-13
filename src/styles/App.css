@@ -1,0 +1,24 @@
+:root {
+  --light-color: #e79e4f;
+  --dark-color: #321f28;
+  --secondary-color: #734046;
+  --bg-color: linear-gradient(107.54deg, #321F28 0%, rgba(115, 64, 70, 0.3) 99.99%, #734046 100%), #321F28;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-color);
+}
+
+.App {
+  min-height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--light-color);
+}
