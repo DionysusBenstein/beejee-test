@@ -61,7 +61,7 @@ function TaskItem({id, username, email, text, status}) {
         </Label>
         <StyledButton>Сохранить</StyledButton>
         <StyledButton onClick={() => {
-          setChecked(!checked);
+          setChecked(status === 10 || status === 11);
           setIsInEditMode(false)}
         }>
           Отменить
