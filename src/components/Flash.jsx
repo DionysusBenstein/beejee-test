@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { hideFlash } from '../redux/actions';
 
-function Flash({}) {
+function Flash() {
   const text = useSelector(state => state.app.flash);
   const dispatch = useDispatch();
 

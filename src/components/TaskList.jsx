@@ -17,6 +17,7 @@ function TaskList({title}) {
   const isFetching = useSelector(state => state.tasks.isFetching);
   const currentPage = useSelector(state => state.tasks.currentPage);
   const sort = useSelector(state => state.tasks.sort);
+  const isAuth = useSelector(state => state.auth.isAuth);
 
   useEffect(() => dispatch(fetchTasks(currentPage, sort.field, sort.direction)), [currentPage, isFetching]);
 
@@ -52,8 +53,15 @@ function TaskList({title}) {
           <AddIcon/>Создать
         </Button>
       </StyledHeader>
+      {isAuth && <small>Для редактирования задачи кликните по тексту дважды</small>}
       {tasks.map(task => {
-        return <TaskItem key={task.id} username={task.username} email={task.email} text={task.text} status={task.status} />
+        return <TaskItem 
+          key={task.id}
+          id={task.id}
+          username={task.username} 
+          email={task.email} 
+          text={task.text} 
+          status={task.status} />
       })}
       <Pagination />      
     </Wrapper>

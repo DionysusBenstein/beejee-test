@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRoutes } from 'react-router-dom';
 
 function Navbar({children}) {
-  const location = useRoutes();
-  console.log(location.pathname);
   return <StyledNavbar>{children}</StyledNavbar>;
 }
 

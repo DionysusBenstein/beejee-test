@@ -48,6 +48,31 @@ class TaskService {
       console.log(e);
     }
   }
+
+  async editTask(text='', status, id) {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+
+    formData.append('text', text);
+    formData.append('status', status);
+    formData.append('token', token);
+
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${this.baseUrl}edit/${id}`,
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+        params: {
+          developer: this.developer
+        }
+      });
+
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 export default new TaskService();

@@ -4,6 +4,8 @@ export const HIDE_FLASH = 'HIDE_FLASH';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-export const TASKS_IS_FETCHING = 'SET_IS_FETCHING';
+export const TASKS_IS_FETCHING = 'TASKS_IS_FETCHING';
 export const SET_SORT = 'SET_SORT';
-
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const LOGIN_IS_FETCHING = 'LOGIN_IS_FETCHING';

@@ -2,13 +2,17 @@ import { React, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CheckedIcon } from '../../icons/checked.svg';
 
-function Checkbox(props) {
-  const [ checked, setChecked ] = useState(false);
+function Checkbox({defaultValue, disabled, ...props}) {
+  const [ checked, setChecked ] = useState(defaultValue);
 
   return (
-    <StyledCheckbox checked={checked}>
-      <input type="checkbox" onChange={e => setChecked(e.target.checked)} {...props} />
-      {/* {checked && <CheckedIcon/>} */}
+    <StyledCheckbox checked={checked} disabled={disabled}>
+      <input
+        disabled={disabled} 
+        type="checkbox" 
+        onChange={e => setChecked(e.target.checked)} 
+        {...props} 
+      />
       <CheckedIcon/>
     </StyledCheckbox>
   );
@@ -20,7 +24,7 @@ const StyledCheckbox = styled.label`
   height: 25px;
   border: ${({checked}) => !checked ? '2px' : '0'} solid var(--light-color);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: ${({disabled}) => disabled ? 'not-allowed' : 'pointer'};
   user-select: none;
   transition: all 0.01s ease-out;
 
