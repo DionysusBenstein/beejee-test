@@ -20,9 +20,8 @@ function Login() {
   useEffect(() => {
     if (isAuth && !isFetching) {
       navigate('/');
-    } else {
-      dispatch(showFlash(status));
-    }
+    }    
+    dispatch(showFlash(status));
   }, [isFetching])
 
   const {
@@ -53,6 +52,7 @@ function Login() {
           <TextInput 
             register={register} 
             name='password' 
+            type='password'
             value={password} 
             onChange={e => setPassword(e.target.value)}
           />
