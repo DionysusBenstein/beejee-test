@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { hideModal, showFlash, fetchTasks, tasksIsFetching } from '../redux/actions';
 import styled from 'styled-components';
 
@@ -13,6 +13,7 @@ import taskService from '../api/TaskService';
 
 function TaskForm() {
   const [task, setTask] = useState({username: '', email: '', text:''});
+  const { field, direction } = useSelector(state => state.tasks.sort);
   const dispatch = useDispatch();
 
   const {
@@ -24,7 +25,7 @@ function TaskForm() {
   async function onSubmit() {
     dispatch(tasksIsFetching(true));
     taskService.createTask(task);
-    dispatch(fetchTasks());
+    dispatch(fetchTasks(1, field, direction));
     dispatch(hideModal());
     dispatch(showFlash('Задача добавлено успешно'));
     setTask({username: '', email: '', text:''});

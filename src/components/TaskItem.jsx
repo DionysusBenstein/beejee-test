@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -7,11 +7,18 @@ import Button from './UI/Button';
 import TextInput from './UI/TextInput';
 import Label from './UI/Label';
 import taskService from '../api/TaskService';
+import { calculateStatus } from '../utils';
 
 function TaskItem({id, username, email, text, status}) {
-  const [inputText, setinputText] = useState(text);
+  const [inputText, setInputText] = useState(text);
+  const [newStatus, setNewStatus] = useState(status);
+  const [checked, setChecked] = useState(status === 10 || status === 11);
   const [isInEditMode, setIsInEditMode] = useState(false);
   const isAuth = useSelector(state => state.auth.isAuth);
+
+  useEffect(() => {
+    taskService.editTask(inputText, newStatus, id);
+  }, [newStatus, inputText])
 
   const {
     register,
@@ -20,9 +27,9 @@ function TaskItem({id, username, email, text, status}) {
   } = useForm();
 
   function saveChanges() {
-    taskService.editTask(inputText, status, id);
+    const isTextChanged = text !== inputText || status === 1 || status === 11;
+    setNewStatus(calculateStatus(checked, isTextChanged));  
     setIsInEditMode(false);
-    alert(1);
   }
 
   return (
@@ -30,7 +37,8 @@ function TaskItem({id, username, email, text, status}) {
       <FlexContainer>
         <Checkbox 
           disabled={!isAuth || !isInEditMode}
-          defaultValue={status === 10 || status === 11}
+          checked={checked}
+          setChecked={setChecked}
         />
         <StyledHeader> 
           <Username>{username}</Username>
@@ -48,11 +56,14 @@ function TaskItem({id, username, email, text, status}) {
             register={register} 
             value={inputText} 
             name={id.toString()} 
-            onChange={e => setinputText(e.target.value)}
+            onChange={e => setInputText(e.target.value)}
           />
         </Label>
         <StyledButton>Сохранить</StyledButton>
-        <StyledButton onClick={() => setIsInEditMode(false)}>
+        <StyledButton onClick={() => {
+          setChecked(!checked);
+          setIsInEditMode(false)}
+        }>
           Отменить
         </StyledButton>
       </form> 
@@ -60,7 +71,7 @@ function TaskItem({id, username, email, text, status}) {
       <Text onDoubleClick={() => setIsInEditMode(true)}>
         {inputText} 
       </Text>}
-      {status === 1 || status === 10 && <small>(отредактировано администратором)</small> }
+      {(newStatus === 1 || newStatus === 11) && <small>(отредактировано администратором)</small> }
     </Wrapper>
   );
 }

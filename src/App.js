@@ -17,7 +17,7 @@ function App() {
       <Flash/>
       <BrowserRouter>
         <Navbar>
-          <Button padding as={Link} to='/'>Главная</Button>
+          {!isAuth && <Button padding as={Link} to='/'>Главная</Button>}
           {isAuth ? 
           <Button padding as={Link} to='/' onClick={() => dispatch(logout())}>Выйти</Button> :
           <Button padding as={Link} to='/login'>Войти</Button>}

@@ -1,16 +1,15 @@
-import { React, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CheckedIcon } from '../../icons/checked.svg';
 
-function Checkbox({defaultValue, disabled, ...props}) {
-  const [ checked, setChecked ] = useState(defaultValue);
-
+function Checkbox({checked, setChecked, disabled,  ...props}) {
   return (
     <StyledCheckbox checked={checked} disabled={disabled}>
       <input
         disabled={disabled} 
         type="checkbox" 
-        onChange={e => setChecked(e.target.checked)} 
+        onChange={e => {setChecked(e.target.checked)}} 
+        checked={checked}
         {...props} 
       />
       <CheckedIcon/>

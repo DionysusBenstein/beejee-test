@@ -1,11 +1,3 @@
-export const getPagesArray = (totalPages) => {
-  let result = [];
-  for (let i = 0; i < totalPages; i++) {
-    result.push(i + 1)
-  }
-  return result;
-}
-
 export function createPages(pages, pagesCount, currentPage) {
   if(pagesCount > 6) {
     if(currentPage > 3) {
@@ -25,4 +17,11 @@ export function createPages(pages, pagesCount, currentPage) {
         pages.push(i)
     }
   }
+}
+
+export function calculateStatus(isDone, isTextChanged) {
+  if (isDone && isTextChanged) return 11;
+  if (!isDone && isTextChanged) return 1;
+  if (isDone) return 10;
+  return 0;
 }
